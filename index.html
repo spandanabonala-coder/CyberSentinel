@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSentinel Security Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>CyberSentinel</h1>
+        <p>URL Threat Detection and Security Log Monitoring</p>
+    </header>
+
+    <main>
+
+        <!-- Dashboard Statistics -->
+        <section class="dashboard">
+
+            <div class="card">
+                <h3>Suspicious URLs</h3>
+                <h2 id="urls">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Security Alerts</h3>
+                <h2 id="alerts">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Failed Login Attempts</h3>
+                <h2 id="logins">0</h2>
+            </div>
+
+        </section>
+
+        <!-- URL Threat Detection -->
+        <section class="card">
+            <h2>URL Threat Detection</h2>
+
+            <input
+                type="text"
+                id="urlInput"
+                placeholder="Enter URL to check"
+            >
+
+            <button onclick="checkURL()">Check URL</button>
+
+            <p id="result"></p>
+        </section>
+
+        <!-- Security Log Analysis -->
+        <section class="card">
+            <h2>Security Log Analysis</h2>
+
+            <button onclick="addFailedLogin()">
+                Simulate Failed Login
+            </button>
+
+            <button onclick="simulateSecurityError()">
+                Simulate Security Error
+            </button>
+        </section>
+
+        <!-- Stack -->
+        <section class="card">
+            <h2>Stack Operations</h2>
+
+            <p>Data Structure: Stack (LIFO)</p>
+
+            <button onclick="viewStackAlerts()">
+                View Stored Stack Alerts
+            </button>
+        </section>
+
+        <!-- Queue -->
+        <section class="card">
+            <h2>Queue Operations</h2>
+
+            <p>Data Structure: Queue (FIFO)</p>
+
+            <button onclick="addQueueLog()">
+                Add Log to Queue
+            </button>
+
+            <button onclick="viewQueueLogs()">
+                View Queue Logs
+            </button>
+        </section>
+
+        <!-- Binary Search Tree -->
+        <section class="card">
+            <h2>Binary Search Tree (BST)</h2>
+
+            <p>Store and display alert severity in sorted order.</p>
+
+            <button onclick="addBSTSeverity()">
+                Add Alert Severity
+            </button>
+
+            <button onclick="viewBSTAlerts()">
+                View BST Alerts
+            </button>
+        </section>
+
+        <!-- Recent Logs -->
+        <section class="card">
+            <h2>Recent Security Logs</h2>
+
+            <ul id="logs"></ul>
+
+            <button onclick="clearLogs()">
+                Clear Logs
+            </button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>CyberSentinel | ADS Project | Developed using C</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
