@@ -1,5 +1,5 @@
-const API_BASE_URL = "https://YOUR-RENDER-BACKEND-URL.onrender.com";
 
+const API_BASE_URL = "https://cybersentinel-5za5.onrender.com";
 
 let suspiciousCount = 0;
 let failedLoginCount = 0;
@@ -9,51 +9,47 @@ async function checkURL() {
     const result = document.getElementById("result");
 
     if (!url) {
-        result.innerHTML = "Please enter a URL.";
+        result.textContent = "Please enter a URL.";
         return;
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/check-url", {
+        const response = await fetch(API_BASE_URL + "/check-url", {
             method: "POST",
-            headers: {
-                "Content-Type": "text/plain"
-            },
+            headers: { "Content-Type": "text/plain" },
             body: url
         });
 
         const message = await response.text();
-
-        result.innerHTML = message;
+        result.textContent = message;
 
         if (message.includes("Suspicious")) {
             result.style.color = "red";
             suspiciousCount++;
-            document.getElementById("urls").innerHTML = suspiciousCount;
-            document.getElementById("alerts").innerHTML = suspiciousCount;
+            document.getElementById("urls").textContent = suspiciousCount;
+            document.getElementById("alerts").textContent = suspiciousCount;
             addLog("Suspicious URL: " + url);
         } else {
             result.style.color = "green";
             addLog("URL checked: " + url);
         }
     } catch (error) {
-        result.innerHTML = "C server connection failed!";
+        result.textContent = "C server connection failed!";
         result.style.color = "red";
     }
 }
 
 async function addFailedLogin() {
     try {
-        const response = await fetch(`${API_BASE_URL}/analyze-log", {
+        const response = await fetch(API_BASE_URL + "/analyze-log", {
             method: "POST",
             headers: { "Content-Type": "text/plain" },
             body: "FAILED login attempt"
         });
 
         const message = await response.text();
-
         failedLoginCount++;
-        document.getElementById("logins").innerHTML = failedLoginCount;
+        document.getElementById("logins").textContent = failedLoginCount;
         addLog(message);
     } catch (error) {
         addLog("C server connection failed!");
@@ -69,9 +65,10 @@ function addLog(message) {
 function clearLogs() {
     document.getElementById("logs").innerHTML = "";
 }
+
 async function simulateSecurityError() {
     try {
-        const response = await fetch(`${API_BASE_URL}/analyze-log", {
+        const response = await fetch(API_BASE_URL + "/analyze-log", {
             method: "POST",
             headers: { "Content-Type": "text/plain" },
             body: "ERROR unauthorized access detected"
@@ -79,24 +76,24 @@ async function simulateSecurityError() {
 
         const message = await response.text();
 
-        await fetch(`${API_BASE_URL}/add-alert", {
+        await fetch(API_BASE_URL + "/add-alert", {
             method: "POST",
             headers: { "Content-Type": "text/plain" },
             body: message
         });
 
-        document.getElementById("alerts").innerHTML =
-            Number(document.getElementById("alerts").innerHTML) + 1;
+        document.getElementById("alerts").textContent =
+            Number(document.getElementById("alerts").textContent) + 1;
 
         addLog(message);
-
     } catch (error) {
         addLog("C server connection failed!");
     }
 }
+
 async function viewStackAlerts() {
     try {
-        const response = await fetch(`${API_BASE_URL}/alerts");
+        const response = await fetch(API_BASE_URL + "/alerts");
         const message = await response.text();
 
         if (message.includes("No alerts stored.")) {
@@ -106,14 +103,14 @@ async function viewStackAlerts() {
 
         addLog("Stored Stack Alerts:");
         message.trim().split("\n").forEach(alert => addLog(alert));
-
     } catch (error) {
         addLog("Could not retrieve Stack alerts.");
     }
 }
+
 async function addQueueLog() {
     try {
-        const response = await fetch(`${API_BASE_URL}/add-log", {
+        const response = await fetch(API_BASE_URL + "/add-log", {
             method: "POST",
             headers: { "Content-Type": "text/plain" },
             body: "Security log added from dashboard"
@@ -128,7 +125,7 @@ async function addQueueLog() {
 
 async function viewQueueLogs() {
     try {
-        const response = await fetch(`${API_BASE_URL}/queue-logs");
+        const response = await fetch(API_BASE_URL + "/queue-logs");
         const message = await response.text();
 
         if (message.includes("No security logs stored.")) {
@@ -142,6 +139,7 @@ async function viewQueueLogs() {
         addLog("Could not retrieve Queue logs.");
     }
 }
+
 async function addBSTSeverity() {
     const severity = prompt("Enter alert severity (1-10):");
 
@@ -153,7 +151,7 @@ async function addBSTSeverity() {
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/add-severity", {
+        const response = await fetch(API_BASE_URL + "/add-severity", {
             method: "POST",
             headers: { "Content-Type": "text/plain" },
             body: severity.trim()
@@ -168,7 +166,7 @@ async function addBSTSeverity() {
 
 async function viewBSTAlerts() {
     try {
-        const response = await fetch(`${API_BASE_URL}/bst-alerts");
+        const response = await fetch(API_BASE_URL + "/bst-alerts");
         const message = await response.text();
 
         addLog("BST Alert Severities (Sorted): " + message);
